@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameLibraryMAUIApp.MainPage"
+             xmlns:viewmodel="clr-namespace:GameLibraryMAUIApp.ViewModel"
+             xmlns:model="clr-namespace:GameLibraryMAUIApp.Model"
+             x:DataType="viewmodel:MainViewModel">
+
+    <Grid ColumnDefinitions="*,*,*"
+          RowDefinitions="50, *">
+        <CollectionView Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        Background="LightBlue"
+                        ItemsSource="{Binding Jeux}"
+                        Margin="10, 0, 0, 0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Game">
+                    <Border HeightRequest="100"
+                            Stroke="Gray"
+                            BackgroundColor="GhostWhite"
+                            StrokeThickness="3"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   HorizontalTextAlignment="Start"
+                                   TextColor="Black"
+                                   FontSize="30"
+                                   Margin="10, 0, 0, 10"/>
+                            <CollectionView ItemsSource="{Binding ConsolesList}"
+                                            x:Name="ListConsole"
+                                            ItemsLayout="HorizontalList">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Console">
+                                        <Label Text="{Binding Name}"
+                                                       TextColor="Black"
+                                                       Margin="10, 0, 0, 10"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+        
+        <Button Grid.Row="0"
+                Grid.Column="0"
+                Background="Red"
+                Text="Sort"/>
+        <Button Grid.Row="0"
+                Grid.Column="1"
+                Background="LightYellow"
+                Text="Refresh"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GetGameCommand}"/>
+        <Button Grid.Row="0"
+                Grid.Column="2"
+                Background="LimeGreen"
+                Text="Add"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToAddCommand}"/>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameLibraryMAUIApp.Page.Add"
+             Title="Add a game"
+             xmlns:viewmodel="clr-namespace:GameLibraryMAUIApp.ViewModel"
+             x:DataType="viewmodel:AddViewModel"
+             xmlns:model="clr-namespace:GameLibraryMAUIApp.Model">
+    <VerticalStackLayout>
+        <Entry Placeholder="Enter name"
+               Text="{Binding Name}"/>
+        <Entry Placeholder="Enter publisher"
+               Text="{Binding Publisher}"/>
+        <Picker Title="Completion"
+                SelectedItem="{Binding Completion}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Not Started</x:String>
+                    <x:String>Unfinished</x:String>
+                    <x:String>Done</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label Text="Release date:"/>
+        <DatePicker Date="{Binding ReleaseDate}"
+                    MinimumDate="01/01/1970"/>
+        <Picker Title="Genre" 
+                ItemsSource="{Binding GenreList}"
+                ItemDisplayBinding="{Binding GenreName}"
+                SelectedItem="{Binding Genre}"/>
+        <HorizontalStackLayout>
+            <Picker Title="Console" 
+                    ItemsSource="{Binding ConsoleList}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding Console}"/>
+            <Button Text="Add"
+                                BackgroundColor="LightGreen"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:AddViewModel}}, Path=AddConsoleCommand}"/>
+        </HorizontalStackLayout>
+        <CollectionView ItemsSource="{Binding ConsoleCollection}"
+                        VerticalOptions="Fill">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Console">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Name}"/>
+                        <Button Text="Remove"
+                                BackgroundColor="DarkRed"
+                                CommandParameter="{Binding .}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:AddViewModel}}, Path=DeleteConsoleCommand}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Add a game"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:AddViewModel}}, Path=AddCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

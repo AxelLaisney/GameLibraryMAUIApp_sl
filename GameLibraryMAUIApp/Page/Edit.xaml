@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameLibraryMAUIApp.Page.Edit"
+             Title="Edit"
+             xmlns:viewmodel="clr-namespace:GameLibraryMAUIApp.ViewModel"
+             x:DataType="viewmodel:EditViewModel"
+             xmlns:model="clr-namespace:GameLibraryMAUIApp.Model">
+    
+    
+    <Grid RowDefinitions="*, 60"
+          ColumnDefinitions="*, *, *"
+          BackgroundColor="LightBlue"
+          ColumnSpacing="10"
+          RowSpacing="10">
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Spacing="10">
+            <Label Text="Name:"
+                   FontSize="30"
+                   TextColor="Black"/>
+            <Entry Text="{Binding Game.Name}"
+                   TextColor="DarkGray"
+                   FontSize="25"/>
+            <Label Text="Publisher:"
+                   FontSize="30"
+                   TextColor="Black"/>
+            <Entry Text="{Binding Game.Publisher}"
+                   TextColor="DarkGray"
+                   FontSize="25"/>
+            <Label Text="Platform:"
+                   FontSize="30"
+                   TextColor="Black"/>
+            <Label Text="Completion:"
+                   FontSize="30"
+                   TextColor="Black"/>
+            <Entry Text="{Binding Game.Completion}"
+                   TextColor="DarkGray"
+                   FontSize="25"/>
+            <Picker ItemsSource="{Binding Game.Completion}">
+            </Picker>
+            <Label Text="Genre:"
+                   FontSize="30"
+                   TextColor="Black"/>
+            <Entry Text="{Binding Game.GenreId}"
+                   TextColor="DarkGray"
+                   FontSize="25"/>
+        </VerticalStackLayout>
+        <Button Text="Back"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0, 0, 0, 10"/>
+        <Button Text="Test"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0, 0, 0, 10"/>
+        <Button Text="Delete"
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="0, 0, 0, 10"/>
+    </Grid>
+</ContentPage>
