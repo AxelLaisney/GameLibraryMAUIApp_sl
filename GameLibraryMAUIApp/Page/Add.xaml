@@ -34,8 +34,8 @@
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding Console}"/>
             <Button Text="Add"
-                                BackgroundColor="LightGreen"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:AddViewModel}}, Path=AddConsoleCommand}"/>
+                    BackgroundColor="LightGreen"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:AddViewModel}}, Path=AddConsoleCommand}"/>
         </HorizontalStackLayout>
         <CollectionView ItemsSource="{Binding ConsoleCollection}"
                         VerticalOptions="Fill">

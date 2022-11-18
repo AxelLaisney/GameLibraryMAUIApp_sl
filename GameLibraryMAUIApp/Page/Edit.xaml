@@ -29,32 +29,58 @@
             <Entry Text="{Binding Game.Publisher}"
                    TextColor="DarkGray"
                    FontSize="25"/>
-            <Label Text="Platform:"
-                   FontSize="30"
-                   TextColor="Black"/>
             <Label Text="Completion:"
                    FontSize="30"
                    TextColor="Black"/>
             <Entry Text="{Binding Game.Completion}"
                    TextColor="DarkGray"
                    FontSize="25"/>
-            <Picker ItemsSource="{Binding Game.Completion}">
-            </Picker>
             <Label Text="Genre:"
                    FontSize="30"
                    TextColor="Black"/>
-            <Entry Text="{Binding Game.GenreId}"
-                   TextColor="DarkGray"
-                   FontSize="25"/>
+            <DatePicker Date="{Binding Game.ReleaseDate}"
+                        MinimumDate="01/01/1970"
+                        TextColor="DarkGray"/>
+            <Picker ItemsSource="{Binding GenreList}"
+                    SelectedItem="{Binding Genre}"
+                    ItemDisplayBinding="{Binding GenreName}"
+                    Title="Select Genre"
+                    TextColor="DarkGray"/>
+            <HorizontalStackLayout>
+                <Picker ItemsSource="{Binding ConsoleList}"
+                        ItemDisplayBinding="{Binding Name}"
+                        TextColor="DarkGray"
+                        Title="Select a console"
+                        SelectedItem="{Binding Console}"/>
+                <Button Text="Add"
+                        BackgroundColor="LightGreen"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:EditViewModel}}, Path=AddConsoleCommand}"/>
+
+            </HorizontalStackLayout>
+            <CollectionView ItemsSource="{Binding ConsoleCollection}"
+                        VerticalOptions="Fill">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Console">
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}"/>
+                            <Button Text="Remove"
+                                BackgroundColor="DarkRed"
+                                CommandParameter="{Binding .}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:EditViewModel}}, Path=DeleteConsoleCommand}"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
         <Button Text="Back"
                 Grid.Row="1"
                 Grid.Column="0"
                 Margin="0, 0, 0, 10"/>
-        <Button Text="Test"
+        <Button Text="Update"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="0, 0, 0, 10"/>
+                Margin="0, 0, 0, 10"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:EditViewModel}}, Path=UpdateGameCommand}"/>
         <Button Text="Delete"
                 Grid.Row="1"
                 Grid.Column="2"

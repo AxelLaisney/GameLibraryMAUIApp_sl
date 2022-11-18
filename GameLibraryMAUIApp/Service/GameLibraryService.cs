@@ -46,5 +46,12 @@ namespace GameLibraryMAUIApp.Service
         {
             await client.DeleteAsync(url + "Game/" + id);
         }
+
+        public async Task UpdateGame(GameDTO gameDTO)
+        {
+            string json = JsonConvert.SerializeObject(gameDTO);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            await client.PutAsync(url+"Game", content);
+        }
     }
 }
